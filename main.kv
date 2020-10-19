@@ -1,0 +1,74 @@
+#:kivy 1.8.0
+<mainScreen>
+    name: "main"
+    GridLayout:
+        cols: 1
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: 0.9, 0.9
+            bar_width: 10
+            id: bookScroll
+            StackLayout:
+                orientation: "lr-tb"
+                size_hint: 1, None
+                spacing: 10
+                height: self.minimum_height
+                id: books
+        Button:
+            size_hint: 1, 0.1
+            text: "Add a book"
+            on_release: root.manager.inputScreen()
+<readerScreen>
+    name: "reader"
+    GridLayout:
+        rows: 2
+        cols: 1
+        GridLayout:
+            size_hint: 1, 0.1
+            cols: 2
+            Button:
+                text: "<"
+                size_hint: 0.05, 0.1
+                on_release: root.manager.mainScreen()
+            Label:
+                id: title
+                size_hint: 0.75, 0.1
+        ScrollView:
+            id: contentScroll
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: 0.9, 0.9
+            Label:
+                size_hint: 1, None
+                height: self.texture_size[1]
+                padding: 10, 10
+                text_size: self.width, None
+                id: content
+<inputScreen>
+    name: "input"
+    GridLayout:
+        rows: 4
+        Button:
+            text:"< Back"
+            on_release: root.manager.mainScreen()
+            size_hint: 1, 0.1
+        TextInput:
+            size_hint: 1, 0.3
+            id: nickText
+            hint_text: "Nickname for item"
+        TextInput:
+            size_hint: 1, 0.4
+            id: urlText
+            hint_text: "URL for item"
+        GridLayout:
+            size_hint: 1, 0.2
+            cols: 2
+            Button:
+                text: "Delete"
+                size_x: 0.5
+                on_release: root.delete()
+            Button:
+                text: "Add"
+                size_x: 0.5
+                on_release: root.add()
