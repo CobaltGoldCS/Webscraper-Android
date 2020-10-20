@@ -8,6 +8,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.popup import Popup
+from kivy.core.window import Window
 
 from webdata import UrlReading
 from support import Effect, call_control, MultiExpressionButton
@@ -133,7 +134,14 @@ wm.add_widget(mainScreen(name = "main"))
 
 class main(App):
     def build(self):
+        Window.bind(on_keyboard=self.back_button)
         return wm
+    def back_button(self, window, key, scancode, codepoint, modifier):
+        if key is 27:
+            wm.mainScreen()
+            return True
+        else:
+            return False
 
 if __name__ == "__main__":
     app = main()
